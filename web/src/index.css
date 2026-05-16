@@ -1,0 +1,10 @@
+:root {
+  font: 16px/1.5 system-ui, 'Segoe UI', Roboto, sans-serif;
+  color-scheme: light dark;
+}
+
+body { margin: 0; }
+
+button { cursor: pointer; padding: 6px 12px; }
+input { padding: 6px 8px; width: 100%; box-sizing: border-box; }
+table th, table td { padding: 6px 8px; }

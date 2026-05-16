@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const crypto = require('crypto');
 const express = require('express');
+const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const bcrypt = require('bcrypt');
@@ -19,6 +20,7 @@ const {
   REFRESH_TOKEN_TTL = '7d',
   BCRYPT_ROUNDS = '12',
   ADMIN_USERNAMES = '',
+  CORS_ORIGINS = 'http://localhost:5173',
 } = process.env;
 
 const ROLES = Object.freeze({ ADMIN: 'admin', USER: 'user' });
@@ -38,6 +40,10 @@ if (JWT_ACCESS_SECRET === JWT_REFRESH_SECRET) {
 const app = express();
 app.disable('x-powered-by');
 app.use(helmet());
+app.use(cors({
+  origin: CORS_ORIGINS.split(',').map(s => s.trim()).filter(Boolean),
+  credentials: true,
+}));
 app.use(express.json({ limit: '10kb' }));
 
 // In-memory stores. In production swap these for Postgres/Redis.
